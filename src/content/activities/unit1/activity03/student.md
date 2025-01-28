@@ -122,7 +122,66 @@ class Walker {
 }
 ```
 
-Propuso tener dos métodos diferentes para step, uno normal y uno opuesto. Cada caminante llama a su método step correspondiente para lograr el resultado de ir en direcciones completamente opuestas.
+Propuso tener dos métodos diferentes para step, uno normal y uno opuesto. Cada caminante llama a su método step correspondiente para lograr el resultado de ir en direcciones completamente opuestas. Finalmente agregué unas modificaciones al color, el fondo es gris, el trazo del normal es negro y del opuesto es blanco.
+``` js
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+let walker1, walker2;
+
+function setup() {
+  createCanvas(400, 400);
+  walker1 = new Walker(width / 2, height / 2); // Caminante 1
+  walker2 = new Walker(width / 2, height / 2); // Caminante 2
+  background(128);
+}
+
+function draw() {
+  walker1.step();
+  walker2.oppositeStep(walker1.lastStep); // Caminante 2 sigue el movimiento opuesto
+  stroke(0);
+  walker1.show();
+  stroke(255);
+  walker2.show();
+}
+
+class Walker {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.lastStep = { x: 0, y: 0 }; // Guarda el último paso
+  }
+
+  show() {
+    
+    point(this.x, this.y);
+  }
+
+  step() {
+    const choice = floor(random(4));
+    if (choice == 0) {
+      this.x++;
+      this.lastStep = { x: 1, y: 0 }; // Derecha
+    } else if (choice == 1) {
+      this.x--;
+      this.lastStep = { x: -1, y: 0 }; // Izquierda
+    } else if (choice == 2) {
+      this.y++;
+      this.lastStep = { x: 0, y: 1 }; // Abajo
+    } else {
+      this.y--;
+      this.lastStep = { x: 0, y: -1 }; // Arriba
+    }
+  }
+
+  oppositeStep(lastStep) {
+    // Movimiento opuesto basado en el último paso del otro caminante
+    this.x -= lastStep.x;
+    this.y -= lastStep.y;
+  }
+}
+```
 Imagen
 ## ¿Qué aprendiste de este experimento?
 - Es un error tener la mitad de la funcionalidad que se espera de un método fuera de él.
