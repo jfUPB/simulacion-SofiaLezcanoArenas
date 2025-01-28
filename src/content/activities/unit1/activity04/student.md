@@ -29,7 +29,7 @@ class Walker {
   }
 
   step() {
-    const choice = floor(randomGaussian(0));
+    const choice = floor(randomGaussian(0)); //en vez de random(), se usa la función randomGaussian()
     if (choice == 0) {
       this.x++;
     } else if (choice == 1) {
@@ -42,3 +42,7 @@ class Walker {
   }
 }
 ```
+
+Para lograr favorecer la derecha en la caminata aleatoria, cambié la función `random()` por la función `randomGaussian()` y como argumento colocqué 0, que es la opción que indica aumentar la variable x, lo que visualmente se traduce a una caminata que tira más a la derecha que hacia otra dirección.
+
+Imagen
