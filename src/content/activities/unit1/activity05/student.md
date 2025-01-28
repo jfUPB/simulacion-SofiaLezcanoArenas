@@ -1,6 +1,6 @@
 # Distribución Normal
-## Explicación del ejemplo
-
+## Descripción del ejemplo
+Lo que quiero con el código es que haya tres figuras en la pantalla al mismo tiempo, un círculo, un cuadrado y un triángulo, cada uno de color diferente. Según el número que la distribución gaussiana arroje, una de estas figuras aumentara de tamaño x1 pixel. El 0 representa al círculo, el 2 al cuadrado y el 4 al triángulo. La distribución tendrá como media el número 2 y una dispersión estándar de 1.
 ## Código del ejemplo
 ``` js
 let circleSize = 50;
