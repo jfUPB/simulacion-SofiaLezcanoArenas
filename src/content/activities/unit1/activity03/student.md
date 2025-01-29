@@ -182,7 +182,8 @@ class Walker {
   }
 }
 ```
-Imagen
+![ejemplo1](../../../../assets/U1actividad3.1.png)
+![ejemplo2](../../../../assets/U1actividad3.2.png)
 ## ¿Qué aprendiste de este experimento?
 - Es un error tener la mitad de la funcionalidad que se espera de un método fuera de él.
 - Es posible tener métodos en una clase que no todas las instancias usen.
