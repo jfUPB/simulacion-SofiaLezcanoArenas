@@ -46,4 +46,4 @@ class Walker {
 
 Para lograr favorecer la derecha en la caminata aleatoria, cambié la función `random()` por la función `randomGaussian()` y como argumento colocqué 0, que es la opción que indica aumentar la variable x, lo que visualmente se traduce a una caminata que tira más a la derecha que hacia otra dirección.
 
-Imagen
+![ejemplo](../../../../assets/U1actividad4.png)
