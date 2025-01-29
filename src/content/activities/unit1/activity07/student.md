@@ -79,3 +79,5 @@ function drawFogLayer(t, layerIndex) {
 }
 ```
 ### Captura de pantalla
+![ejemplo1](../../../../assets/U1actividad7.1.png)
+![ejemplo2](../../../../assets/U1actividad7.2.png)
