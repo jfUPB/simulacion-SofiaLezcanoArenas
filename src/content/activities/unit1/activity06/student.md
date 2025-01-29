@@ -43,3 +43,5 @@ function draw() {
 }
 ```
 ## Captura de pantalla
+![ejemplo1](../../../../assets/U1actividad6.1.png)
+![ejemplo2](../../../../assets/U1actividad6.2.png)
