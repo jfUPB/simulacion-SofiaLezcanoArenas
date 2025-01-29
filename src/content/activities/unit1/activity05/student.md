@@ -55,6 +55,7 @@ function draw() {
 }
 ```
 ## Captura de pantalla
+![ejemplo](../../../../assets/U1actividad5.png)
 ## Una breve explicación de cómo se refleja la distribución normal en la visualización
 En la captura se observa claramente cómo el cuadrado crece más rápido que las otras dos figuras, 
 ya que el número que da la instrucción de que crezca es el 2, que a su vez es la media de esta distribución.
