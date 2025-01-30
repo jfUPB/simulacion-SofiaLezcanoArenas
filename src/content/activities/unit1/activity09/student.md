@@ -1,5 +1,6 @@
 # Materialización
-## Código
+## Primera versión
+### Código
 ``` js
 let columnas, filas;
 let escala;
@@ -108,7 +109,7 @@ function drawStar(x, y, radius1, radius2) {
     endShape(CLOSE);
 }
 ```
-## Resultado
+### Resultado
 ![ejemplo sin color](../../../../assets/U1actividad9.1.png)
 ![verde](../../../../assets/U1actividad9.verde.jpg) ![ejemplo verde](../../../../assets/U1actividad9.2.png)
 
@@ -118,5 +119,13 @@ function drawStar(x, y, radius1, radius2) {
 
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/vx59hHNrv)
 
-## Variación
-La única diferencia con el original es que la primera iteración fue con cuadrados, pero se veía demasiado aburrido, así que lo cambié por estrellas.
+## Versión final
+La diferencia con esta versión, es que al fondo pintarse únicamente al comienzo del programa y no reiteradas veces a lo largo de él, las estrellas parecen pintando un lienzo y no moviéndose rápidamente por un lugar.
+### Código
+
+### Resultado
+![ejemplo3](../../../../assets/U1actividad9.4.png)
+![ejemplo4](../../../../assets/U1actividad9.5.png)
+![ejemplo5](../../../../assets/U1actividad9.6.png)
+
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/En7ncYwzF)
