@@ -66,6 +66,6 @@ function calcularColorPromedio() {
 }
 ```
 ## Resultado
-[Enlace a la simulación](https://editor.p5js.org/)
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/-fDLlejGx)
 ## Referentes
 [sandspiel](https://sandspiel.club/)
