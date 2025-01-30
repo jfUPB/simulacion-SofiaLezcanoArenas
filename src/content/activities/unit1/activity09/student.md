@@ -110,9 +110,13 @@ function drawStar(x, y, radius1, radius2) {
 ```
 ## Resultado
 ![ejemplo sin color](../../../../assets/U1actividad9.1.png)
-![verde](../../../../assets/U1actividad9.verde.jpg)
-![ejemplo verde](../../../../assets/U1actividad9.2.png)
-![ejemplo magenta](../../../../assets/U1actividad9.3.png)
+![verde](../../../../assets/U1actividad9.verde.jpg) ![ejemplo verde](../../../../assets/U1actividad9.2.png)
+
 ![magenta](../../../../assets/U1actividad9.magenta.png)
 
+![ejemplo magenta](../../../../assets/U1actividad9.3.png)
+
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/vx59hHNrv)
+
+## Variación
+La única diferencia con el original es que la primera iteración fue con cuadrados, pero se veía demasiado aburrido, así que lo cambié por estrellas.
