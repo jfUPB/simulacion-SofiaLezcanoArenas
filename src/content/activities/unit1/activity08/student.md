@@ -1,47 +1,56 @@
 # Diseño: exploración de la idea
-## Intención de diseño.
+## Intención de diseño
+Generar una aplicación interactiva que haga uso de los conceptos de arte generativo, ruido de Perlin y caminatas aleatorias.
 ## ¿Cómo piensas usar los tres conceptos y por qué estos?
+- Ruido Perlin
+- 
 ## Código
 ``` js
 let columnas, filas;
 let escala;
-let ruidoZ = 0;
 let img;
 let colorPromedio;
 let inputButton;
+let walkers = []; // Array para almacenar los objetos Walker
 
 function setup() {
   createCanvas(600, 400);
   inputButton = createFileInput(handleFile);
   inputButton.position(10, 10);
-  escala = floor(random(5, 30)); // Generar tamaño aleatorio de cuadros
+  escala = floor(random(5, 30));
   columnas = width / escala;
   filas = height / escala;
+
+  // Inicializar los objetos Walker
+  for (let i = 0; i < 100; i++) { // Crear 100 caminantes
+    walkers.push(new Walker(random(width), random(height)));
+  }
 }
 
 function draw() {
-  background(10);
+  background(128);
   if (img) {
     img.loadPixels();
     colorPromedio = calcularColorPromedio();
   }
-  ruidoZ += 0.01;
-  for (let y = 0; y < filas; y++) {
-    for (let x = 0; x < columnas; x++) {
-      let ruidoValor = noise(x * 0.1, y * 0.1, ruidoZ);
-      let brillo = map(ruidoValor, 0, 1, 0, 255);
-      fill(lerpColor(colorPromedio || color(255), color(0), brillo / 255));
-      noStroke();
-      rect(x * escala, y * escala, escala, escala);
-    }
+
+  for (let walker of walkers) {
+    walker.walk(); // Ejecutar un paso de caminata aleatoria
+    walker.display(); // Dibujar el rectángulo en la posición del caminante
   }
 }
 
 function keyPressed() {
   if (key.toLowerCase() === 's') {
-    escala = floor(random(5, 30)); // Generar nuevo tamaño aleatorio
+    escala = floor(random(5, 30));
     columnas = width / escala;
     filas = height / escala;
+
+    // Reinicializar los objetos Walker con la nueva escala
+    walkers = [];
+    for (let i = 0; i < 100; i++) {
+      walkers.push(new Walker(random(width), random(height)));
+    }
   }
 }
 
@@ -63,6 +72,30 @@ function calcularColorPromedio() {
     }
   }
   return color(r / total, g / total, b / total);
+}
+
+// Clase Walker para representar a cada caminante
+class Walker {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  walk() {
+    let stepX = random(-escala, escala); // Paso aleatorio en el eje X
+    let stepY = random(-escala, escala); // Paso aleatorio en el eje Y
+
+    this.x = constrain(this.x + stepX, 0, width); // Mantener dentro de los límites del canvas
+    this.y = constrain(this.y + stepY, 0, height); // Mantener dentro de los límites del canvas
+  }
+
+  display() {
+    let ruidoValor = noise(this.x * 0.01, this.y * 0.01); // Usar ruido para variar el color
+    let brillo = map(ruidoValor, 0, 1, 0, 255);
+    fill(lerpColor(colorPromedio || color(255), color(0), brillo / 255));
+    noStroke();
+    rect(this.x, this.y, escala, escala);
+  }
 }
 ```
 ## Resultado
