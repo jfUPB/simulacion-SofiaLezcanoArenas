@@ -5,6 +5,8 @@ mientras que su magnitud es qué tan larga es.
 
 Un vector es la distancia entre dos puntos o instrucciones para caminar de un punto a otro.
 
+La posición nos da información relativa desde el origen (0,0) hasta donde se encuentra algo. Mientras que la velocidad indica cómo se mueve algo de un punto a otro.
+
 ## Explicación ejemplo 1.2: Bouncing Ball with Vectors!
 En un entorno 2D se necesitan dos variables por cada propiedad. En uno 3D se necesitarían 3 por cada una. Las propiedades son: aceleración, posición, velocidad, fricción, posición objetivo y viento.
 ## ¿Cómo funciona la suma dos vectores?
