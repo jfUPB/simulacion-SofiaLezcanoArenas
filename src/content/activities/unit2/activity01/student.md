@@ -9,6 +9,10 @@ La posición nos da información relativa desde el origen (0,0) hasta donde se e
 
 ## Explicación ejemplo 1.2: Bouncing Ball with Vectors!
 En un entorno 2D se necesitan dos variables por cada propiedad. En uno 3D se necesitarían 3 por cada una. Las propiedades son: aceleración, posición, velocidad, fricción, posición objetivo y viento.
+
+Es importante resaltar que en este caso el origen se encuentra en la esquina superior izquierda en vez del centro del plano.
+
+P5.js ya cuenta con una clase para crear vectores así que en lugar de crearla, solo queda llamarla `createVector(x,y)`, sabiendo que solo puede usarse dentro de `setup()` y `draw()`.
 ## ¿Cómo funciona la suma dos vectores?
 
 ## ¿Por qué esta línea position = position + velocity; no funciona?
