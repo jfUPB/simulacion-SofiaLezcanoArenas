@@ -52,10 +52,22 @@ Cuando se pasa una variable a una función, se pasa una referencia a la ubicaci�
 
 **Ejemplo:**
 ``` js
+let persona = { nombre: "Juan", edad: 25 };
 
+function cambiarNombre(obj) {
+    obj.nombre = "Carlos";  // Modifica el objeto original
+}
+
+cambiarNombre(persona);  // Pasamos el objeto persona por referencia
+
+console.log(persona.nombre);  // Imprime "Carlos", porque el objeto original fue modificado
 ```
 ### ¿Qué tipo de paso se está realizando en el código?
 
 ### ¿Qué aprendiste?
-![image](https://github.com/user-attachments/assets/1910c55b-227e-4f56-82a8-e459052c2e52)
-El número dos en fondo azul es es parte de la herramienta de consola del navegador y generalmente se refiere al identificador de la invocación de un mensaje en la consola.
+
+- El número dos en fondo azul es es parte de la herramienta de consola del navegador y generalmente se refiere al identificador de la invocación de un mensaje en la consola.
+  
+  ![image](https://github.com/user-attachments/assets/1910c55b-227e-4f56-82a8-e459052c2e52)
+- El concepto de paso por valor y paso por referencia.
+- Cómo imprimir vectores por consola
