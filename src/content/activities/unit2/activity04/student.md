@@ -1,5 +1,7 @@
 ## Explora posibilidades
 ### ¿Para qué sirve el método mag()? Nota que hay otro método llamado magSq(). ¿Cuál es la diferencia entre ambos? ¿Cuál es más eficiente?
+**Mag():** Calcula la magnitud, es decir, el largo de un vector 2D. Se usa pasando las componentes a la función así `mag(x, y)`
+**MagSq():**
 ### ¿Para qué sirve el método normalize()?
 ### Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
 ### El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
