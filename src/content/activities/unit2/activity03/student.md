@@ -63,7 +63,7 @@ cambiarNombre(persona);  // Pasamos el objeto persona por referencia
 console.log(persona.nombre);  // Imprime "Carlos", porque el objeto original fue modificado
 ```
 ### ¿Qué tipo de paso se está realizando en el código?
-
+Se está realizando un paso por referencia porque el valor del vector está siendo modificado
 ### ¿Qué aprendiste?
 
 - El número dos en fondo azul es es parte de la herramienta de consola del navegador y generalmente se refiere al identificador de la invocación de un mensaje en la consola.
