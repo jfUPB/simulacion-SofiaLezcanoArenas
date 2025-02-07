@@ -27,11 +27,35 @@ function draw() {
 Para el primero obtuve el resultado esperado.
 ![image](https://github.com/user-attachments/assets/812d3a07-bf66-4338-81c7-771595e4a483)
 
-Para el segundo, hubo algo que no me esperaba. La función toString() interpretó los vectores con tres componentes por defecto.
+Para el segundo, hubo algo que no me esperaba. La función toString() interpretó los vectores con tres componentes por defecto, aunque mantuvo la bidimensionalidad colocando el valor de la tercera componente en cero.
 ![image](https://github.com/user-attachments/assets/f6bde3e4-bb7d-47b9-ab10-6a0c65399acc)
 
 ### Recuerda los conceptos de paso por valor y paso por referencia en programación. Muestra ejemplos de este concepto en javascript.
+#### Paso por valor
+Cuando se pasa una variable como argumento a una función, se pasa una copia del valor de esa variable. Es decir, los cambios realizados dentro de la función no afectan a la variable original fuera de la función.
+En JavaScript, los tipos primitivos (como number, string, boolean, null, undefined, symbol, bigint) se pasan por valor.
+
+**Ejemplo:**
+``` js
+let x = 10;
+
+function cambiarValor(a) {
+    a = 20;  // Modifica la copia local
+}
+
+cambiarValor(x);  // Pasamos x por valor
+
+console.log(x);  // Imprime 10, porque x no ha cambiado
+```
+#### Paso por referencia
+Cuando se pasa una variable a una función, se pasa una referencia a la ubicación de la memoria donde se almacena el valor de esa variable. Esto significa que si se modifica el valor dentro de la función, se modifica el valor original fuera de la función. En JavaScript, los objetos (incluyendo arrays y funciones) se pasan por referencia.
+
+**Ejemplo:**
+``` js
+
+```
 ### ¿Qué tipo de paso se está realizando en el código?
+
 ### ¿Qué aprendiste?
 ![image](https://github.com/user-attachments/assets/1910c55b-227e-4f56-82a8-e459052c2e52)
 El número dos en fondo azul es es parte de la herramienta de consola del navegador y generalmente se refiere al identificador de la invocación de un mensaje en la consola.
