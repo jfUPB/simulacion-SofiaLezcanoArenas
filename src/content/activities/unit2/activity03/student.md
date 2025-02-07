@@ -21,8 +21,17 @@ function draw() {
 }
 ```
 ### ¿Qué resultado esperas obtener?
-Imprimir el valor que tenía el vector inicialmente además del que luego se le asigna.
+- Ejecutar un número de veces definida draw() y visualizar un mensaje por cada vez que se ejecute esa función.
+- Imprimir el valor que tenía el vector inicialmente además del que luego se le asigna.
 ### ¿Qué resultado obtuviste?
+Para el primero obtuve el resultado esperado.
+![image](https://github.com/user-attachments/assets/812d3a07-bf66-4338-81c7-771595e4a483)
+
+Para el segundo, hubo algo que no me esperaba. La función toString() interpretó los vectores con tres componentes por defecto.
+![image](https://github.com/user-attachments/assets/f6bde3e4-bb7d-47b9-ab10-6a0c65399acc)
+
 ### Recuerda los conceptos de paso por valor y paso por referencia en programación. Muestra ejemplos de este concepto en javascript.
 ### ¿Qué tipo de paso se está realizando en el código?
 ### ¿Qué aprendiste?
+![image](https://github.com/user-attachments/assets/1910c55b-227e-4f56-82a8-e459052c2e52)
+El número dos en fondo azul es es parte de la herramienta de consola del navegador y generalmente se refiere al identificador de la invocación de un mensaje en la consola.
