@@ -7,7 +7,10 @@
 - Optimiza cálculos de distancias en gráficos, geometría computacional y algoritmos de machine learning.
 - Facilita las comparaciones de longitudes o distancias sin la necesidad de realizar operaciones matemáticas más costosas.
 ### ¿Para qué sirve el método normalize()?
+Se utiliza para normalizar un vector. Este método escala los componentes de un p5.Vector de modo que su magnitud sea 1. La versión estática de normalize(), como en p5.Vector.normalize(v), devuelve un nuevo p5.Vector y no cambia el original.
+Un vector normalizado tiene la misma dirección que el vector original, pero su longitud (magnitud) es igual a 1. Esto es útil para trabajar con direcciones sin preocuparte por las magnitudes originales del vector, y se utiliza frecuentemente en gráficos, simulaciones físicas y muchas otras aplicaciones matemáticas.
 ### Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
+
 ### El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
 ### Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y la magnitud del vector resultante.
 ### ¿Para que te puede servir el método dist()?
