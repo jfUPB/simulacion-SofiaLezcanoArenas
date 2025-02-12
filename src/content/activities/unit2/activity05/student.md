@@ -74,6 +74,7 @@ Estos son los parámetros que recibe`lerp(valor1, valor2, amt)` siendo estos val
 - valor1: el valor inicial.
 - valor2: el valor final.
 - amt: un número entre 0 y 1 que determina la posición entre valor1 y valor2.
+
 **LerpColor()**: es una función de p5.js que interpola entre dos colores basándose en un valor de interpolación entre 0 y 1.
   Recibe estos parámetros `lerpColor(color1, color2, amt);` que serían:
 - color1: Primer color.
@@ -84,6 +85,7 @@ Estos son los parámetros que recibe`lerp(valor1, valor2, amt)` siendo estos val
 - base: Punto inicial de la flecha (p5.Vector).
 - vec: Vector que indica la dirección y la longitud de la flecha.
 - myColor: Color de la flecha.
+  
 **Explicación función**
   ``` js
   function drawArrow(base, vec, myColor) {
