@@ -14,14 +14,18 @@ fueran múltiplos de los vectores del objeto 1?
 ### ¿Qué te imaginas que pasará?
 Ambos objetos se moverán de manera paralela separados por la cantidad de pixeles que indique
 el número por el que se multipliquen los vectores posición y velocidad del objeto 2.
-### ¿Qué pasó?
-**Observaciones:**
+### ¿Qué pasó y por qué?
+**Problemas:**
 - Si la velocidad es igual para ambos, no se visualizan en la pantalla los dos, sino solo uno.
 - Si la velocidad es diferente si se visualizan los dos, pero en este caso como la velocidad del 2 era 5 veces la del 1, iba muy rápido.
-  Como no entendía cuál era el problema, le pregunté a chat y esto fue lo que me dijo: Tu código casi logra el efecto deseado, 
+
+**Solución:**
+Como no entendía cuál era el problema, le pregunté a chat y esto fue lo que me dijo: Tu código casi logra el efecto deseado, 
 pero hay un problema: en el setup(), cuando creas mover2,
 intentas establecer su posición y velocidad en función de mover,
 pero mover.position sigue estando en (0,0) en ese momento, por lo que mover2 también empieza en (0,0).
+
+Así que me dispuse a darle un valor específico al vector posición y hacer que la velocidad solo tenga valores en y. Además, al iniciar el programa, se le asigna la velocidad del objeto 1 al objeto 2 e igual con la posición, exceptuando que al del objeto 2, le sumamos 100 a la componente x para que se observe un poco más a la derecha.
 
 **Código clase mover**
 ``` js
@@ -97,5 +101,6 @@ function draw() {
 ```
 
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/6x7w2HGIq)
-### ¿Por qué?
-### Concluye
+### Conclusiones
+- Siempre hay que tener cuidado en la sintaxis, cosas que pensamos obvias podrían no serlo y es mejor confirmar con fuentes como documentación o IA.
+- Es viable crear una clase de movimiento que directamente inicialice los vectores posición y movimiento porque esto no significa que todos los objetos que creemos sean iguales, pues se pueden usar funciones como random() para garantizar aleatoriedad o set() para cambiar las componentes de un vector luego de que se ha creado.
