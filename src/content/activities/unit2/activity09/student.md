@@ -19,18 +19,23 @@ fue muy básico con óvalos amarillos, por lo que lo mejoré dibujando un par de
 #### Resultados
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/RWCUjNwHs)
 
-![image](https://github.com/user-attachments/assets/3b2c0189-9af4-4458-b75a-a15acfd4094a)
-
+![image](https://github.com/user-attachments/assets/ec174db8-8518-4351-8c5e-c860edf028be)
 
 **Observaciones**
 
-Al ser aleatorio no quiere decir que no podamos generar una tendencia en el movimiento, 
+Al ser aleatorio no quiere decir que no podamos generar una tendencia en el movimiento, podemos usar el concepto de distribución no uniforme y favorecer valores. Realmente el comportamiento de las abejas aparte de tirar hacia el centro, es completamente aleatorio.
+
+El movimiento de las abejas, aparte de tender hacia el centro, a veces acelera y a veces desacelera por el factor de aleatoriedad del código. Se puede observar como cada una va a su propia velocidad y en algunas ocasiones se le ve más rápida, mientras que en otras se le ve más lenta.
 
 ### Aceleración hacia el mouse
 #### Ejemplo
+Para este ejercicio, como es usual revisé lo que tenía para ofrecer el libro, en este caso fue _Example 1.10: Accelerating Toward the Mouse_ para observar un poco cómo era el comportamiento esperado con este tipo de aceleración. Como no tenía ideas al respecto, le pedí a Chat algunas y aunque no me gustó ninguna, me inspiró a crear mi propio concepto: el mouse es el sol y los planetas se aceleran hacia él teniendo en cuenta su masa. Los más pesados son más lentos y los más ligeros son más rápidos.
 #### Resultados
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/hLExJ-4el)
 
-**Código**
-``` js
-```
+![image](https://github.com/user-attachments/assets/ccd3b1c6-fda3-4b22-ad62-20fd25a4f39d)
+
+**Observaciones**
+- La aceleración hace que los planetas cambien su velocidad en cada frame, moviéndolos más rápido hacia el sol con el tiempo.
+- La irección de la aceleración se calcula como la diferencia entre la posición del sol (mouse) y la posición del planeta.
+- La magnitud de la aceleración está inversamente relacionada con la masa del planeta (planetas más pequeños se aceleran más).
