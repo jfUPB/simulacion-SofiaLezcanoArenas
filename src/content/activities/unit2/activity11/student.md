@@ -110,4 +110,4 @@ function draw() {
 
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/6rweEh0lI)
 ### Variaciones al concepto original y razones
-El concepto original surgió en la actividad 9 con el experimento de aceleración hacia el mouse, en donde primero pensé que podía representar los planetas
+El concepto original surgió en la actividad 9 con el experimento de aceleración hacia el mouse, en donde primero pensé que podía tener representaciones de los planetas orbitando alrededor del sol. Al principio todos se movían de igual manera, pero luego me di cuenta que podía hacerlo más realista si su masa afectaba su movimiento, por lo que lo apliqué con chat. Finalmente me dio la idea de la estela que al principio era una línea, un trazo. Puliendo lo que me entregaba, este fue el resultado final.
