@@ -9,7 +9,7 @@
 - Si un objeto está en movimiento, la fricción lo desacelera hasta que se detiene (si no hay otra fuerza que lo impulse).
 - Si un objeto está en reposo, la fricción puede evitar que comience a moverse.
 
-**Fórmula:** Fricción = −μ⋅N⋅𝑣
+**Fórmula matemática:** Fricción = −μ⋅N⋅𝑣
 - μ → Coeficiente de fricción (depende del tipo de suelo).
 - 𝑁 → Fuerza normal (en este caso, es constante porque no estamos considerando pendientes, por lo que se simplifica a un valor fijo).
 - 𝑣 → Dirección opuesta a la velocidad (se obtiene invirtiendo el vector de velocidad).
@@ -180,12 +180,31 @@ function dibujarSuelo() {
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/BZrpUw51U)
 ### Resistencia del aire y de fluidos
 #### Modelado de la fuerza
+**Concepto:** La resistencia del aire (o resistencia de fluidos en general) es una fuerza opuesta al movimiento de un objeto cuando se desplaza a través de un fluido (como el aire o el agua). Esta resistencia depende de varios factores y es crucial en la física del movimiento porque reduce la velocidad de los objetos y afecta su trayectoria.
+
+**¿Qué implica en el movimiento?** Cuando un objeto se mueve en un fluido:
+- La resistencia del aire disminuye su velocidad con el tiempo.
+- Si no hay otra fuerza empujándolo, el objeto se detendrá eventualmente.
+- Cuanto más rápido se mueve un objeto, más fuerte es la resistencia.
+- Cuando un objeto cae en el aire, la resistencia aumenta hasta que la fuerza de gravedad y la resistencia se equilibran, alcanzando la velocidad terminal (velocidad máxima de caída sin aceleración).
+
+**Fórmula matemática:** Resistencia del aire = 1/2 * C * ρ * A * v^2
+- 𝐶: Coeficiente de arrastre (depende de la forma del objeto y su superficie).
+- 𝜌: Densidad del fluido (kg/m³, por ejemplo, 1.225 kg/m³ para el aire a nivel del mar).
+- 𝐴: Área frontal del objeto (m², el área que "choca" con el aire).
+- 𝑣: Velocidad del objeto en el fluido (m/s).
+
+**Dirección de la fuerza:** se invierte la dirección del vector velocidad.
+
+**Magnitud de la fuerza:** 
 #### Idea
+Crear una aplicación que muestre un pez que se mueve en dirección hacia el mouse y que no llega inmediatamente porque experimenta la resistencia del agua. También podría haber un botón para alternar entre tres peces con diferente masa y observar como influye la misma en la resistencia del agua y a su vez en el movimiento.
 #### Código
 #### Resultado
-
+[Enlace a la simulación]()
 ### Atracción gravitacional
 #### Modelado de la fuerza
 #### Idea
 #### Código
 #### Resultado
+[Enlace a la simulación]()
