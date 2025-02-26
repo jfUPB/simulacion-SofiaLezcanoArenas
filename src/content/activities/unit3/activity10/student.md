@@ -194,14 +194,129 @@ function dibujarSuelo() {
 - 𝐴: Área frontal del objeto (m², el área que "choca" con el aire).
 - 𝑣: Velocidad del objeto en el fluido (m/s).
 
-**Dirección de la fuerza:** se invierte la dirección del vector velocidad.
-
+**Dirección de la fuerza:** 
+- Se invierte la dirección del vector velocidad.
+- En el código se debe hacer una copia del valor de velocidad y multiplicarlo por -1.
+  ``` js
+  friction = mover.velocity.copy();
+  friction.mult(-1);
+  ```
+  
 **Magnitud de la fuerza:** 
+-  ![image](https://github.com/user-attachments/assets/b151deab-23ee-420c-bb4a-73a7472b59dc)
+
+- En el código sería
+  ``` js
+  let c = 0.1;
+  let speed = this.velocity.mag();
+  let dragMagnitude = c * speed * speed;
+  ```
 #### Idea
 Crear una aplicación que muestre un pez que se mueve en dirección hacia el mouse y que no llega inmediatamente porque experimenta la resistencia del agua. También podría haber un botón para alternar entre tres peces con diferente masa y observar como influye la misma en la resistencia del agua y a su vez en el movimiento.
 #### Código
+**liquid.js**
+``` js
+class Liquid {
+  constructor(x, y, w, h, c) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.c = c; // Coeficiente de fricción
+  }
+
+  display() {
+    noStroke();
+    fill(0, 100, 200, 150);
+    rect(this.x, this.y, this.w, this.h);
+  }
+}
+```
+
+**mover.js**
+``` js
+class Fish {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.maxSpeed = 3;
+    this.size = 20; // Tamaño del pez
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  follow(targetX, targetY) {
+    let target = createVector(targetX, targetY);
+    let force = p5.Vector.sub(target, this.position);
+    force.setMag(0.1); // Fuerza de atracción al mouse
+    this.applyForce(force);
+  }
+
+  update() {
+    // Si está en el agua, aplica resistencia
+    if (this.position.y > height / 2) {
+      let drag = this.velocity.copy();
+      drag.mult(-0.1); // Resistencia del agua
+      this.applyForce(drag);
+    }
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  display() {
+    push();
+    translate(this.position.x, this.position.y);
+
+    // Cuerpo del pez
+    fill(255, 150, 0);
+    ellipse(0, 0, this.size * 2, this.size); 
+
+    // Cola
+    fill(200, 100, 0);
+    triangle(-this.size, 0, -this.size * 1.5, -this.size / 2, -this.size * 1.5, this.size / 2);
+
+    // Ojo
+    fill(255);
+    ellipse(this.size / 2, -this.size / 4, this.size / 3, this.size / 3);
+    fill(0);
+    ellipse(this.size / 2, -this.size / 4, this.size / 6, this.size / 6);
+
+    pop();
+  }
+}
+```
+
+**sketch.js**
+``` js
+let fish;
+let liquid;
+
+function setup() {
+  createCanvas(600, 400);
+  fish = new Fish(width / 2, height / 2);
+  liquid = new Liquid(0, height / 2, width, height / 2, 0.1); // Agua con resistencia
+}
+
+function draw() {
+  background(200, 230, 255); // Fondo azul claro
+
+  liquid.display(); // Dibuja el agua
+  fish.update();
+  fish.display();
+}
+
+function mouseMoved() {
+  fish.follow(mouseX, mouseY);
+}
+```
 #### Resultado
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/47EQJDKoZ)
 ### Atracción gravitacional
 #### Modelado de la fuerza
 #### Idea
