@@ -351,16 +351,201 @@ function mouseMoved() {
 **Magnitud de la fuerza:** La magnitud de la fuerza es simplemente la fórmula de Newton: **𝐹 = (𝐺 * 𝑚1 * 𝑚2)/𝑟^2**
 Para convertir esta magnitud en un vector de fuerza aplicable en un sistema de simulación, se multiplica el vector unitario por la magnitud de la fuerza: 𝐹 = 𝐹 ⋅ 𝑟 Esto nos da un vector que podemos aplicar a un objeto para simular su aceleración debido a la gravedad.
 #### Idea
-
+Crear una aplicación en la que se aprecie la tierra en el centro del lienzo. Incorporar un botón para lanzar asteroides con diferentes velocidades para mayor estética. Los asteroides serán atraídos hacia la tierra pero también se atraerán entre ellos. Al colisionar entre ellos o con la tierra se verán pequeñas partículas.
 #### Código
-****
+**attractor.js**
 ``` js
+class Attractor {
+  constructor(x, y, m) {
+    this.position = createVector(x, y);
+    this.mass = m;
+    this.radius = m;
+  }
 
+  attract(mover) {
+    let force = p5.Vector.sub(this.position, mover.position);
+    let distance = constrain(force.mag(), 10, 100); // Evita fuerzas extremadamente grandes
+    let strength = (G * this.mass * mover.mass) / (distance * distance);
+    return force.setMag(strength);
+  }
+
+  show() {
+    fill(0, 100, 255);
+    noStroke();
+    ellipse(this.position.x, this.position.y, this.radius * 2);
+  }
+}
 ```
 
-****
+**mover.js**
 ``` js
+class Mover {
+  constructor(x, y, mass) {
+    this.mass = mass;
+    this.radius = mass * 2;
+    this.position = createVector(x, y);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    // Asignar un color aleatorio entre los dos al momento de crearlo
+    let c1 = color('#B90C31'); // Rojo oscuro
+    let c2 = color('#FD8B00'); // Naranja
+    this.color = lerpColor(c1, c2, random(0, 1)); 
+  }
 
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.acceleration.add(f);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  show() {
+    fill(this.color);
+    stroke(this.color);
+    circle(this.position.x, this.position.y, this.radius * 2);
+  }
+
+  attract(other) {
+    let force = p5.Vector.sub(this.position, other.position);
+    let distance = constrain(force.mag(), 5, 50);
+    let strength = (G * this.mass * other.mass) / (distance * distance);
+    force.setMag(strength);
+    return force;
+  }
+
+  collidesWith(other) {
+    let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+    return d < this.radius + other.radius;
+  }
+}
+```
+
+**particle.js**
+``` js
+class Particle {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = p5.Vector.random2D().mult(random(1, 3));
+    this.lifespan = 60; // Duración en frames (~1 segundo)
+  }
+
+  update() {
+    this.position.add(this.velocity);
+    this.lifespan -= 1;
+  }
+
+  show() {
+    noStroke();
+    fill(255, 212, 126, this.lifespan * 4); // Se desvanece con el tiempo
+    ellipse(this.position.x, this.position.y, 4);
+  }
+
+  isDead() {
+    return this.lifespan <= 0;
+  }
+}
+```
+
+**sketch.js**
+``` js
+let asteroids = [];
+let earth;
+let G = 10; // Aumentamos la gravedad
+let stars = [];
+
+function setup() {
+  createCanvas(400, 400);
+  earth = new Attractor(width / 2, height / 2, 30);
+  
+  // Generar estrellas estáticas
+  for (let i = 0; i < 50; i++) {
+    stars.push(createVector(random(width), random(height)));
+  }
+
+  // Botón para lanzar asteroides
+  let launchButton = createButton("Lanzar asteroide");
+  launchButton.position(300, 20);
+  launchButton.mousePressed(() => {
+    let asteroid = new Mover(380, 20, 5);
+    asteroid.velocity = createVector(random(-2, 2), random(2, 4)); // Velocidad aleatoria
+    asteroids.push(asteroid);
+  });
+}
+
+function draw() {
+  background(0);
+
+  // Dibujar estrellas
+  fill(255);
+  noStroke();
+  for (let star of stars) {
+    circle(star.x, star.y, 2);
+  }
+
+  earth.show();
+
+  let toRemove = []; // Lista de asteroides a eliminar
+
+  for (let i = 0; i < asteroids.length; i++) {
+    let asteroid = asteroids[i];
+    
+    let force = earth.attract(asteroid);
+    asteroid.applyForce(force);
+
+    // Atracción gravitacional entre asteroides
+    for (let j = 0; j < asteroids.length; j++) {
+      if (i !== j) {
+        let forceBetween = asteroids[j].attract(asteroid);
+        asteroid.applyForce(forceBetween);
+      }
+    }
+
+    asteroid.update();
+    asteroid.show();
+
+    // Detectar colisiones con la Tierra
+    if (asteroid.collidesWith(earth)) {
+      explode(asteroid.position);
+      toRemove.push(i);
+    }
+
+    // Detectar colisiones entre asteroides
+    for (let j = i + 1; j < asteroids.length; j++) {
+      if (asteroid.collidesWith(asteroids[j])) {
+        explode(asteroid.position);
+        toRemove.push(i, j);
+      }
+    }
+  }
+
+  // Eliminar asteroides después de revisar colisiones
+  toRemove = [...new Set(toRemove)]; // Eliminar duplicados
+  toRemove.sort((a, b) => b - a); // Ordenar de mayor a menor
+  for (let index of toRemove) {
+    asteroids.splice(index, 1);
+  }
+  // Dibujar y actualizar partículas
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].show();
+    if (particles[i].isDead()) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+// Función para simular explosión
+let particles = []; // Array para almacenar las partículas
+
+function explode(position) {
+  for (let i = 0; i < 10; i++) {
+    particles.push(new Particle(position.x, position.y));
+  }
+}
 ```
 #### Resultado
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/8QV2zHT2M)
