@@ -319,7 +319,48 @@ function mouseMoved() {
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/47EQJDKoZ)
 ### Atracción gravitacional
 #### Modelado de la fuerza
+**Concepto:** La atracción gravitacional es la fuerza que ejerce un objeto con masa sobre otro debido a la gravedad. Es la misma fuerza que mantiene los planetas en órbita alrededor del Sol y que hace que los objetos caigan al suelo en la Tierra.
+
+**¿Qué implica en el movimiento?** Cuando un objeto experimenta la atracción gravitacional de otro, su trayectoria cambia. Si la fuerza es lo suficientemente fuerte, puede hacer que el objeto:
+- Acelere hacia el objeto más masivo.
+- Entre en órbita si tiene la velocidad adecuada.
+- Escape si supera la velocidad de escape necesaria.
+
+**Fórmula matemática:** La Ley de Gravitación Universal de Newton nos dice que la fuerza gravitacional entre dos objetos de masas 𝑚1 y 𝑚2 separados por una distancia 𝑟 es:
+
+**𝐹 = (𝐺 * 𝑚1 * 𝑚2)/𝑟^2**
+- F es la magnitud de la fuerza gravitacional.
+- 𝐺 es la constante de gravitación universal, aproximadamente 6.674×10^−11 N * m^2/kg^2
+- 𝑚1 y 𝑚2 son las masas de los dos objetos.
+- 𝑟 es la distancia entre los centros de los dos objetos.
+
+**Dirección de la fuerza:** La fuerza de gravedad siempre apunta hacia el centro del objeto más masivo. Para calcular su dirección usando vectores:
+- Determinar el vector de separación
+  ![image](https://github.com/user-attachments/assets/cf78239a-da1f-44cd-b683-ad7749920a57)
+
+- En el código para la atracción hacia el mouse
+  ``` js
+  let direction = p5.Vector.sub(mouse, position);
+  ```
+- En el código para la atracción entre dos objetos
+  ``` js
+  let direction = p5.Vector.sub(position1, position2);
+  direction.normalize();
+  ```
+  
+**Magnitud de la fuerza:** La magnitud de la fuerza es simplemente la fórmula de Newton: **𝐹 = (𝐺 * 𝑚1 * 𝑚2)/𝑟^2**
+Para convertir esta magnitud en un vector de fuerza aplicable en un sistema de simulación, se multiplica el vector unitario por la magnitud de la fuerza: 𝐹 = 𝐹 ⋅ 𝑟 Esto nos da un vector que podemos aplicar a un objeto para simular su aceleración debido a la gravedad.
 #### Idea
+
 #### Código
+****
+``` js
+
+```
+
+****
+``` js
+
+```
 #### Resultado
 [Enlace a la simulación]()
