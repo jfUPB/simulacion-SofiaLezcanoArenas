@@ -37,4 +37,12 @@ display() {
 ```
 ![image](https://github.com/user-attachments/assets/93e93811-bbd4-425b-be97-bca21ff17ef6)
 
-### Observa que el Attractor tiene dos atributos this.dragging y this.rollover. Estos atributos no se modifican en el código, pero permitirían mover el attractor con el mouse y cambiar su color cuando el mouse está sobre él. ¿Cómo podrías modificar el código para que esto funcione? considera las funciones que ofrece p5.js para interactuar con el mouse.
+### Observa que el Attractor tiene dos atributos this.dragging y this.rollover. Estos atributos no se modifican en el código, pero permitirían mover el attractor con el mouse y cambiar su color cuando el mouse está sobre él ¿Cómo podrías modificar el código para que esto funcione?
+[Enlace a la simulación funcional](https://editor.p5js.org/SofiaLezcanoArenas/sketches/pjS_36Vw_)
+
+Para permitir que el Attractor se mueva con el mouse cuando se arrastra y cambie de color cuando el cursor esté sobre él, hay que:
+
+- Detectar si el mouse está sobre el Attractor modificando this.rollover en Attractor.
+- Permitir arrastrarlo cuando se presiona el mouse (mousePressed).
+- Actualizar su posición mientras se arrastra (mouseDragged).
+- Liberarlo cuando se suelta el mouse (mouseReleased).
