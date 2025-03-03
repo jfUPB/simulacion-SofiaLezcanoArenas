@@ -1,0 +1,3 @@
+## Te presento a Memo Akten
+
+La obra **Simple Harmonic Motion** es audiovisualmente muy atrapante y satisfactoria al representar visualmente con mucha exactitud y cohesión las melodías. La parte que más me gustó fue cuando hay un paso al 3D, el cual ofrece infinitas nuevas posibilidades para la representación 2D que antes se estaba dando, como el agua que se siente bastante realista. Lo único que no me gustó es que al final las esferas se transforman en animales, eso me hacía darme a la idea de que se estaban ahogando o estaban siendo torturados aunque fueran meras esculturas dentro de la obra. Finalmente, me gustaría aprender un poco más respecto al manejo de gráficos 3D con código.
