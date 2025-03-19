@@ -1,5 +1,6 @@
 # Revisa y repasa algunos conceptos
 ## Sistemas de partículas
+Un sistema de partículas es una colección de muchísimas partículas diminutas que, en conjunto, representan un objeto difuso. Con el tiempo, las partículas se generan en un sistema, se mueven y cambian dentro del sistema, y ​​mueren. En el tiempo se han usado para modelar varios tipos irregulares de fenómenos naturales, como fuego, humo, cascadas, niebla, hierba, burbujas, etc.
 ## Simulación 4.2: an Array of Particles
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
 ### Modificación: concepto
