@@ -14,6 +14,8 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
+``` js
+```
 #### _Resultado_
 [Enlace a la simulación]()
 
@@ -23,6 +25,8 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
+``` js
+```
 #### _Resultado_
 [Enlace a la simulación]()
 
@@ -32,6 +36,8 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
+``` js
+```
 #### _Resultado_
 [Enlace a la simulación]()
 
@@ -41,6 +47,8 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
+``` js
+```
 #### _Resultado_
 [Enlace a la simulación]()
 
