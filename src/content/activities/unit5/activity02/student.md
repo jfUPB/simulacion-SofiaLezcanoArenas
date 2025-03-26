@@ -148,8 +148,11 @@ for (let i = this.particles.length - 1; i >= 0; i--) {
 - **Uso de splice(i, 1):** Se eliminan las partículas muertas para que el array no crezca indefinidamente. Se recorre de atrás hacia adelante para evitar errores de índice al eliminar elementos.
 
 - **Cada Emitter sigue activo hasta que se borren todas sus partículas:** No hay límite de partículas, si el usuario hace muchos clics puede haber una sobrecarga de partículas. Cada Emitter genera partículas indefinidamente en draw(), lo que puede afectar el rendimiento a largo plazo.
-### Modificación: concepto
+### Modificación: aceleración aleatoria
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
+Me pareció interesante seguir usando la obra de las abejas que implementaba aceleración aleatoria además de una tendencia hacia el centro gracias a una fuerza de atracción que se le aplicaba.
+
+En el código en vez de utilizar la fuerza de la gravedad para que actúe en las partículas e incitar movimiento en ellas,  aquí se les da una aceleración aleatoria a cada una
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
 ``` js
