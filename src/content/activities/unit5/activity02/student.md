@@ -13,9 +13,99 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 - **Desaparición de partículas y gestión de memoria**: Cada partícula tiene una propiedad lifespan, que disminuye en cada actualización (update()), simulando su envejecimiento. Cuando lifespan llega a cero o menos, el método isDead() devuelve true. Se recorre el arreglo particles[] de atrás hacia adelante en draw(), y si isDead() es true, la partícula se elimina con particles.splice(i, 1). Esto libera la memoria ocupada por la partícula eliminada, evitando acumulaciones innecesarias.
 ### Modificación: Ruido de Perlin
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
-#### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
-#### *Código*
+Empecé buscano en la unidad 1 para ir más o menos en orden y realmente no se me ocurría ningún concepto específico para agregar. Así que apliqué el ruido de Perlin implementando interpolación de color en las partículas.
+
 ``` js
+let t = noise(this.noiseSeed + noiseOffset);
+let c = lerpColor(color1, color2, t);
+```
+
+- this.noiseSeed → Un valor único para cada partícula (para que no todas cambien igual), es entre 0 y 1000 para que haya bastante variedad, pero tampoco es tan grande como para que las diferencias sean prácticamente innotables.
+- noiseOffset → Un valor global que cambia cada frame porque en `draw()` se le aumenta 0.01, moviendo así la "onda" de colores.
+- noise(this.noiseSeed + noiseOffset) → Devuelve un número entre 0 y 1, asegurando un cambio de color progresivo.
+- `fill(c.levels[0], c.levels[1], c.levels[2], this.lifespan);` → pinta las partículas con el color obtenido y el alfa que tiene según su tiempo de vida restante.
+#### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
+La gestión no se ha modificado en el código, por lo que sigue igual que en la explicación anterior a la implementación del ruido de Perlin.
+#### *Código*
+**particle.js**
+``` js
+class Particle {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.acceleration = createVector(0, 0);
+    this.velocity = createVector(random(-1, 1), random(-1, 0));
+    this.lifespan = 255.0;
+    this.noiseSeed = random(1000); // Cada partícula tendrá una variación única en el ruido
+  }
+
+  run() {
+    let gravity = createVector(0, 0.05);
+    this.applyForce(gravity);
+    this.update();
+    this.show();
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  // Method to update position
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.lifespan -= 2;
+    this.acceleration.mult(0);
+  }
+
+  // Method to display
+  show() {
+    // Colores de interpolación
+    let color1 = color(10, 201, 120); // Verde agua (#00CED1)
+    let color2 = color(123, 127, 235);   // Azul (#0000FF)
+
+    // Usar ruido Perlin para suavizar la transición de color
+    let t = noise(this.noiseSeed + noiseOffset);
+    let c = lerpColor(color1, color2, t);
+
+    stroke(0, this.lifespan);
+    strokeWeight(2);
+    fill(c.levels[0], c.levels[1], c.levels[2], this.lifespan);
+    circle(this.position.x, this.position.y, 8);
+  }
+
+  // Is the particle still useful?
+  isDead() {
+    return (this.lifespan < 0.0);
+  }
+}
+```
+
+**sketch.js**
+``` js
+let particles = [];
+let noiseOffset = 0; // Offset para el ruido Perlin
+
+function setup() {
+  createCanvas(640, 240);
+}
+
+function draw() {
+  background(255);
+  particles.push(new Particle(width / 2, 20));
+
+  // Looping through backwards to delete
+  for (let i = particles.length - 1; i >= 0; i--) {
+    let particle = particles[i];
+    particle.run();
+    if (particle.isDead()) {
+      //remove the particle
+      particles.splice(i, 1);
+    }
+  }
+
+  // Incrementamos el offset para que el ruido cambie con el tiempo
+  noiseOffset += 0.01;
+}
 ```
 #### _Resultado_
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/w_GmM20Gc)
@@ -24,6 +114,7 @@ Hay un elemento muy importante llamado emisor, que es quien controla la configur
 
 ## Simulación 4.4: a System of Systems
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
+
 ### Modificación: concepto
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
