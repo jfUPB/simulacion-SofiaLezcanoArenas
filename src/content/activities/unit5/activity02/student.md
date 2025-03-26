@@ -114,7 +114,40 @@ function draw() {
 
 ## Simulación 4.4: a System of Systems
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
+#### Creación de partículas
+Cada vez que el usuario da clic, se crea un nuevo `Emitter` en esa posición:
+``` js
+function mousePressed() {
+  emitters.push(new Emitter(mouseX, mouseY));
+}
+```
 
+Cada Emitter agrega una nueva Particle en cada fotograma con:
+``` js
+addParticle() {
+  this.particles.push(new Particle(this.origin.x, this.origin.y));
+}
+```
+
+Es decir que el número de partículas en pantalla incrementa con cada `Emitter` que se crea.
+####  Desaparición de partículas
+Cada `Particle` tiene un lifespan (duración de vida), que disminuye en cada fotograma en update():
+``` js
+this.lifespan -= 2;
+```
+
+Cuando lifespan < 0, la partícula se considera "muerta". El sistema revisa cada partícula en orden inverso y la elimina del array cuando muere, evitando que estas ocupen memoria:
+``` js
+for (let i = this.particles.length - 1; i >= 0; i--) {
+  if (this.particles[i].isDead()) {
+    this.particles.splice(i, 1);
+  }
+}
+```
+#### Gestión de Memoria
+- **Uso de splice(i, 1):** Se eliminan las partículas muertas para que el array no crezca indefinidamente. Se recorre de atrás hacia adelante para evitar errores de índice al eliminar elementos.
+
+- **Cada Emitter sigue activo hasta que se borren todas sus partículas:** No hay límite de partículas, si el usuario hace muchos clics puede haber una sobrecarga de partículas. Cada Emitter genera partículas indefinidamente en draw(), lo que puede afectar el rendimiento a largo plazo.
 ### Modificación: concepto
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
