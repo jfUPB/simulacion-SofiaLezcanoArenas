@@ -155,7 +155,11 @@ for (let i = this.particles.length - 1; i >= 0; i--) {
 ``` js
 ```
 #### _Resultado_
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/EB_GY9skU)
+
+![image](https://github.com/user-attachments/assets/e25c825d-5b16-4ef8-92fc-c9a958c34b28)
+
+![image](https://github.com/user-attachments/assets/dd3d4d2d-2667-4636-93b1-43af7069a768)
 
 ## Simulación 4.5: a Particle System with Inheritance and Polymorphism
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
