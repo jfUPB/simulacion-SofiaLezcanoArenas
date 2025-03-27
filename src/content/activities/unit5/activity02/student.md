@@ -152,10 +152,110 @@ for (let i = this.particles.length - 1; i >= 0; i--) {
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 Me pareció interesante seguir usando la obra de las abejas que implementaba aceleración aleatoria además de una tendencia hacia el centro gracias a una fuerza de atracción que se le aplicaba.
 
-En el código en vez de utilizar la fuerza de la gravedad para que actúe en las partículas e incitar movimiento en ellas,  aquí se les da una aceleración aleatoria a cada una
+En el código en vez de utilizar la fuerza de la gravedad para que actúe en las partículas e incitar movimiento en ellas,  aquí se les da una aceleración aleatoria inicial a cada una.
+
+Para la atracción al emitter, se calcula un vector de atracción desde la partícula hasta el `Emitter`. `p5.Vector.sub(this.emitter.origin, this.position)` da un vector que apunta desde la partícula hacia el `Emitter`. Se multiplica por 0.001 para suavizar la atracción, haciendo que las partículas no sean arrastradas instantáneamente de vuelta al emisor. `applyForce()` suma este vector a la aceleración de la partícula, influyendo en su movimiento de manera progresiva.
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
 #### *Código*
+**emitter.js**
 ``` js
+// emitter.js
+class Emitter {
+  constructor(x, y) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+  }
+
+  addParticle() {
+    this.particles.push(new Particle(this.origin.x, this.origin.y, this));
+  }
+
+  run() {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      this.particles[i].run();
+      if (this.particles[i].isDead()) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+}
+```
+
+**particle.js**
+``` js
+// particle.js
+class Particle {
+  constructor(x, y, emitter) {
+    this.position = createVector(x, y);
+    this.emitter = emitter;
+    this.acceleration = p5.Vector.random2D().mult(0.05); // Aceleración aleatoria
+    this.velocity = p5.Vector.random2D().mult(2);
+    this.lifespan = 255.0;
+  }
+
+  run() {
+    this.applyForce(p5.Vector.sub(this.emitter.origin, this.position).mult(0.001)); // Atracción al emitter
+    this.update();
+    this.show();
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.lifespan -= 2;
+    this.acceleration.mult(0);
+  }
+
+  show() {
+    stroke(0, this.lifespan);
+    strokeWeight(2);
+    fill(175, 235, 222, this.lifespan);
+    ellipse(this.position.x + 3, this.position.y - 6, 5, 7);
+    fill(255, 204, 0, this.lifespan);
+    ellipse(this.position.x, this.position.y, 10, 7);
+    stroke(0, this.lifespan);
+    line(this.position.x, this.position.y - 6, this.position.x, this.position.y + 3);
+    line(this.position.x - 3, this.position.y - 4, this.position.x - 3, this.position.y + 2);
+    fill(175, 235, 222, this.lifespan);
+    ellipse(this.position.x, this.position.y - 6, 5, 7);
+  }
+
+  isDead() {
+    return this.lifespan < 0.0;
+  }
+}
+```
+
+**sketch.js**
+``` js
+// sketch.js
+let emitters = [];
+
+function setup() {
+  createCanvas(550, 450);
+  createP("Click to add particle systems");
+}
+
+function draw() {
+  background(255);
+  for (let emitter of emitters) {
+    emitter.run();
+    if (frameCount % 2 == 0) {
+      emitter.addParticle();
+    }
+  }
+}
+
+function mousePressed() {
+  if (emitters.length >= 5) {
+    emitters.shift(); // Eliminar el emisor más antiguo
+  }
+  emitters.push(new Emitter(mouseX, mouseY));
+}
 ```
 #### _Resultado_
 [Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/EB_GY9skU)
