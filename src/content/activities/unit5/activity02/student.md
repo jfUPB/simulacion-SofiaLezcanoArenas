@@ -448,6 +448,14 @@ function draw() {
 
 ## Simulación 4.6: a Particle System with Forces
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
+#### Creación de partículas: 
+- En cada fotograma (draw()), se llama a emitter.addParticle(), lo que genera una nueva partícula en la posición del emisor.
+- La partícula se almacena en el arreglo this.particles dentro de Emitter.
+#### Gestión de memoria y eliminación de partículas:
+- En Emitter.run(), se recorre el arreglo this.particles en orden inverso.
+- Se llama a particle.run(), que actualiza la posición y dibuja la partícula.
+- Si la partícula ha agotado su lifespan (isDead() devuelve true), se elimina con splice(i, 1), liberando memoria.
+- No hay un límite explícito de partículas en pantalla. En el peor caso, pueden acumularse alrededor de 127 partículas en un momento dado por la manera en que se crean y se eliminan.
 ### Modificación: concepto
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
