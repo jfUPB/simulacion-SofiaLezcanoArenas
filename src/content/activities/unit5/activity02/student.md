@@ -456,14 +456,119 @@ function draw() {
 - Se llama a particle.run(), que actualiza la posición y dibuja la partícula.
 - Si la partícula ha agotado su lifespan (isDead() devuelve true), se elimina con splice(i, 1), liberando memoria.
 - No hay un límite explícito de partículas en pantalla. En el peor caso, pueden acumularse alrededor de 127 partículas en un momento dado por la manera en que se crean y se eliminan.
-### Modificación: concepto
+### Modificación: funciones sinusoides
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
+Con la estela que deja cada partícula, creo que puede ser interesante implementar colores y con ellos interpolación manipulada por la función seno. La implementación se dio así:
+- **Interpolación de color cíclica:** Se generan dos colores aleatorios al inicio (startColor y endColor). Se usa sin(millis() * 0.002) para interpolar entre los colores de forma cíclica. La función lerpColor() se encarga de hacer la transición.
+- Transición basada en sin(t): sin(t) oscila entre -1 y 1, así que se normaliza con (sin(t) + 1) / 2 para que varíe entre 0 y 1. Esto hace que el cambio de color sea suave y repetitivo.
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
+Esta parte del código no se ha modificado, por lo que permanece igual que antes de implementar el concepto de funciones sinusoides e interpolación de color.
 #### *Código*
+**emitter.js**
 ``` js
+// emitter.js
+class Emitter {
+  constructor(x, y) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+  }
+
+  addParticle() {
+    this.particles.push(new Particle(this.origin.x, this.origin.y));
+  }
+
+  applyForce(force) {
+    for (let particle of this.particles) {
+      particle.applyForce(force);
+    }
+  }
+
+  run() {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const particle = this.particles[i];
+      particle.run();
+      if (particle.isDead()) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+}
+```
+
+**particle.js**
+``` js
+// particle.js
+class Particle {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.acceleration = createVector(0, 0.0);
+    this.velocity = createVector(random(-1, 1), random(-2, 0));
+    this.lifespan = 255.0;
+    this.mass = 1;
+  }
+
+  run() {
+    this.update();
+    this.show();
+  }
+
+  applyForce(force) {
+    let f = force.copy();
+    f.div(this.mass);
+    this.acceleration.add(f);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+    this.lifespan -= 2.0;
+  }
+
+  show() {
+    let t = millis() * 0.002;
+    let amt = (sin(t) + 1) / 2;
+    let c = lerpColor(startColor, endColor, amt);
+    
+    stroke(c);
+    strokeWeight(2);
+    fill(c, this.lifespan);
+    circle(this.position.x, this.position.y, 8);
+  }
+
+  isDead() {
+    return this.lifespan < 0.0;
+  }
+}
+```
+
+**sketch.js**
+``` js
+// sketch.js
+let emitter;
+let startColor, endColor;
+
+function setup() {
+  createCanvas(650, 480);
+  emitter = new Emitter(width / 2, 50);
+  
+  startColor = color(random(255), random(255), random(255));
+  endColor = color(random(255), random(255), random(255));
+}
+
+function draw() {
+  background(255, 30);
+  let gravity = createVector(0, 0.1);
+  emitter.applyForce(gravity);
+  emitter.addParticle();
+  emitter.run();
+}
 ```
 #### _Resultado_
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/i1tgJb2hh)
+
+![image](https://github.com/user-attachments/assets/eaddc762-dabc-4b45-bd55-7c1cb0f3bc79)
+![image](https://github.com/user-attachments/assets/30381b7d-cf8c-4619-a5b7-c497200df077)
 
 ## Simulación 4.7: a Particle System with a Repeller
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
