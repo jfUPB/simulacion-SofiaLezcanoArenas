@@ -572,9 +572,271 @@ function draw() {
 
 ## Simulación 4.7: a Particle System with a Repeller
 ### ¿Cómo se está gestionando la creación y la desaparción de las partículas y cómo se gestiona la memoria?
-### Modificación: concepto
+#### Creación:
+- En cada fotograma (draw()), se añade una nueva partícula con emitter.addParticle().
+- Esta partícula se agrega al arreglo this.particles en Emitter.
+#### Desaparición:
+- Cada partícula tiene un atributo lifespan, que comienza en 255 y disminuye en update() (por this.lifespan -= 2).
+- Cuando lifespan cae por debajo de 0, isDead() retorna true.
+- En run(), las partículas muertas se eliminan con splice(i, 1), lo que libera memoria.
+#### Gestión de Memoria
+Como las partículas se eliminan al morir, la memoria no crece indefinidamente. Sin embargo, si la tasa de creación (addParticle()) es mucho mayor que la tasa de eliminación (splice()), la cantidad de partículas podría crecer temporalmente.
+### Modificación: resortes
 #### _¿Por qué este concepto? ¿Cómo se aplicó el concepto?_
+Pensé que podía ser interesante tener al repeller en movimiento de una manera más interactiva, por lo que revisando unidades pasadas, los resortes me parecieron ideales.
+
+El concepto de resortes se aplicó mediante la clase Spring, que usa la Ley de Hooke para simular la fuerza elástica entre un punto fijo (anchor) y un objeto móvil (Bob). Se calcula la fuerza del resorte como la diferencia entre la posición actual del Bob y la longitud de reposo del resorte, multiplicada por una constante de elasticidad (k). Esta fuerza se aplica al Bob, atrayéndolo hacia su posición de equilibrio. Además, se restringe la longitud del resorte con constrainLength para evitar que el Bob se aleje demasiado o se acerque demasiado al anchor, asegurando un movimiento realista y controlado.
 #### _¿Cómo se está gestionando ahora la creación y la desaparción de las partículas y cómo se gestiona la memoria?_
+Sigue de igual manera que antes de la modificación, pues no se manipuló esta parte.
 #### *Código*
+``` js
+//bob.js
+class Bob {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = createVector();
+    this.acceleration = createVector();
+    this.mass = 12;
+    this.damping = 0.98;
+    this.dragOffset = createVector();
+    this.dragging = false;
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.velocity.mult(this.damping);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+  }
+
+  applyForce(force) {
+    let f = force.copy();
+    f.div(this.mass);
+    this.acceleration.add(f);
+  }
+
+  show() {
+    stroke(0);
+    strokeWeight(2);
+    fill(this.dragging ? 200 : 127);
+    circle(this.position.x, this.position.y, this.mass * 2);
+  }
+
+  handleClick(mx, my) {
+    let d = dist(mx, my, this.position.x, this.position.y);
+    if (d < this.mass) {
+      this.dragging = true;
+      this.dragOffset.x = this.position.x - mx;
+      this.dragOffset.y = this.position.y - my;
+    }
+  }
+
+  stopDragging() {
+    this.dragging = false;
+  }
+
+  handleDrag(mx, my) {
+    if (this.dragging) {
+      this.position.x = mx + this.dragOffset.x;
+      this.position.y = my + this.dragOffset.y;
+    }
+  }
+}
+```
+``` js
+//emitter.js
+class Emitter {
+  constructor(x, y) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+  }
+
+  addParticle() {
+    this.particles.push(new Particle(this.origin.x, this.origin.y));
+  }
+
+  applyForce(force) {
+    for (let particle of this.particles) {
+      particle.applyForce(force);
+    }
+  }
+
+  applyRepeller(repeller) {
+    for (let particle of this.particles) {
+      let force = repeller.repel(particle);
+      particle.applyForce(force);
+    }
+  }
+
+  run() {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const particle = this.particles[i];
+      particle.run();
+      if (particle.isDead()) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+}
+```
+``` js
+//particle.js
+class Particle {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = createVector(random(-1, 1), random(-1, 0));
+    this.acceleration = createVector(0, 0);
+    this.lifespan = 255.0;
+  }
+
+  run() {
+    this.update();
+    this.show();
+  }
+
+  applyForce(f) {
+    this.acceleration.add(f);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.lifespan -= 2;
+    this.acceleration.mult(0);
+  }
+
+  show() {
+    stroke(0, this.lifespan);
+    strokeWeight(2);
+    fill(127, this.lifespan);
+    circle(this.position.x, this.position.y, 8);
+  }
+
+  isDead() {
+    return this.lifespan < 0.0;
+  }
+}
+```
+``` js
+//repeller.js
+class Repeller {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.power = 90;
+  }
+
+  update(newPosition) {
+    this.position.set(newPosition);
+  }
+
+  repel(particle) {
+    let force = p5.Vector.sub(this.position, particle.position);
+    let distance = force.mag();
+    distance = constrain(distance, 5, 50);
+    let strength = (-1 * this.power) / (distance * distance);
+    force.setMag(strength);
+    return force;
+  }
+
+  show() {
+    stroke(0);
+    strokeWeight(2);
+    fill(127);
+    circle(this.position.x, this.position.y, 16);
+  }
+}
+```
+``` js
+//spring.js
+class Spring {
+  constructor(x, y, length) {
+    this.anchor = createVector(x, y);
+    this.restLength = length;
+    this.k = 0.2;
+  }
+
+  connect(bob) {
+    let force = p5.Vector.sub(bob.position, this.anchor);
+    let currentLength = force.mag();
+    let stretch = currentLength - this.restLength;
+    force.setMag(-1 * this.k * stretch);
+    bob.applyForce(force);
+  }
+
+  constrainLength(bob, minlen, maxlen) {
+    let direction = p5.Vector.sub(bob.position, this.anchor);
+    let length = direction.mag();
+    if (length < minlen) {
+      direction.setMag(minlen);
+      bob.position = p5.Vector.add(this.anchor, direction);
+      bob.velocity.mult(0);
+    } else if (length > maxlen) {
+      direction.setMag(maxlen);
+      bob.position = p5.Vector.add(this.anchor, direction);
+      bob.velocity.mult(0);
+    }
+  }
+
+  show() {
+    fill(127);
+    circle(this.anchor.x, this.anchor.y, 10);
+  }
+
+  showLine(bob) {
+    stroke(0);
+    line(bob.position.x, bob.position.y, this.anchor.x, this.anchor.y);
+  }
+}
+```
+``` js
+//sketch.js
+let emitter;
+let repeller;
+let spring;
+let bob;
+
+function setup() {
+  createCanvas(560, 350);
+  emitter = new Emitter(width / 2, 60);
+  bob = new Bob(width / 2, 200);
+  spring = new Spring(width / 2, 220, 50);
+  repeller = new Repeller(bob.position.x, bob.position.y);
+}
+
+function draw() {
+  background(255);
+
+  emitter.addParticle();
+  let gravity = createVector(0, 0.1);
+  emitter.applyForce(gravity);
+  emitter.applyRepeller(repeller);
+  emitter.run();
+
+  let gravityBob = createVector(0, 2);
+  bob.applyForce(gravityBob);
+  bob.update();
+  bob.handleDrag(mouseX, mouseY);
+
+  spring.connect(bob);
+  spring.constrainLength(bob, 30, 100);
+
+  repeller.update(bob.position);
+
+  spring.showLine(bob);
+  bob.show();
+  spring.show();
+  repeller.show();
+}
+
+function mousePressed() {
+  bob.handleClick(mouseX, mouseY);
+}
+
+function mouseReleased() {
+  bob.stopDragging();
+}
+```
 #### _Resultado_
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/HEk00Ttw5)
+
+![image](https://github.com/user-attachments/assets/9e7e9317-5d87-42c4-b191-682206b0e2b1)
