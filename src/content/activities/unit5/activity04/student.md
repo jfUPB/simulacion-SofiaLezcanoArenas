@@ -26,3 +26,5 @@ applyForce(force) {
 ```
 
 ### 4. ¿Cómo se aplicaste los conceptos de herencia y polimorfismo en los sistemas de partículas que trabajaste en la unidad?
+- **Herencia:** Se creó una clase padre de partículas `BaseParticle` y se crearon diferentes tipos de partículas `StandardParticle`, `TinkleParticle` y `SpiralParticle`. Cada una de ellas hereda de `BaseParticle` el método constructor, el método para moverse, el método para mostrarse, el de actualizar la variable lifeSpan, el de detectar si está muerta, entre otros.
+- **Polimorfismo:** Cada tipo de partícula sobreescrible alguno de los métodos. Por ejemplo `SpiralParticle` sobreescribe el método `update()` que es el que maneja el movimiento, pues este tipo de partícula se mueve en espiral mientras se desplaza, mientras que `TinkleParticle` sobreescribe el método de `show()`, pues este tipo de partícula parpadea.
