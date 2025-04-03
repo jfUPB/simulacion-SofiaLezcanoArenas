@@ -21,3 +21,11 @@ Para usarlo como su dirección, crea una copia del vector y la ajusta para que t
 - `maxforce` máxima fuerza de dirección que puede aplicar para cambiar su trayectoria.
 - `steer` fuerza de dirección calculada como la diferencia entre el vector deseado y la velocidad actual.
 ### Modificación
+**Bajando la resolución del campo de flujo**: se observan más celdas. El movimiento no cambia de velocidad.
+![image](https://github.com/user-attachments/assets/a4343261-de86-4cca-a01a-78e28a129a1a)
+
+**Bajando la resolución del campo de flujo a un mínimo (1)**: el movimiento se observa demasiado lento y el fondo se ve saturado pues las líneas que indican dirección son demasiado pequeñas.
+![image](https://github.com/user-attachments/assets/c6e4a9b2-5cbc-40bf-a708-5d18f6fc63a0)
+
+**Aumentando estrepitosamente la resolución del campo de flujo (40)**: el movimiento no cambia de velocidad aparentemente. En el fondo se observa como las celdas se han hecho más grandes y las curvas de movimiento no son tan pronunciadas, sino más bien abiertas.
+![image](https://github.com/user-attachments/assets/0a6b0c12-bb82-4d72-8c15-b6807d19d5cd)
