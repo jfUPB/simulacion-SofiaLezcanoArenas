@@ -29,3 +29,9 @@ Para usarlo como su dirección, crea una copia del vector y la ajusta para que t
 
 **Aumentando estrepitosamente la resolución del campo de flujo (40)**: el movimiento no cambia de velocidad aparentemente. En el fondo se observa como las celdas se han hecho más grandes y las curvas de movimiento no son tan pronunciadas, sino más bien abiertas.
 ![image](https://github.com/user-attachments/assets/0a6b0c12-bb82-4d72-8c15-b6807d19d5cd)
+
+En `sketch.js` dentro de la función `setup()` lo unico modificado es esta línea de código:
+
+``` js
+flowfield = new FlowField(10);
+```
