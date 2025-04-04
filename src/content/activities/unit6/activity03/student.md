@@ -14,5 +14,31 @@
 
 - **Lógica:** Si el otro boid no es él mismo y está cerca, sumamos su posición y aumentamos el contador de vecinos. Calculamos el promedio de las posiciones de los vecinos (el centro del grupo cercano) y lo usa para moverse hacia allá.
 ### Parámetros clave identificados
-- 
+- `desiredSeparation` contenido en cada una de las funciones de las reglas (dentro de ellas tienen valores diferentes)
+- **Pesos o multiplicadores**:
+  ``` js
+  flock(boids) {
+    let sep = this.separate(boids); // Separation
+    let ali = this.align(boids); // Alignment
+    let coh = this.cohere(boids); // Cohesion
+    // Arbitrarily weight these forces
+    sep.mult(1.5);
+    ali.mult(1.0);
+    coh.mult(1.0);
+    // Add the force vectors to acceleration
+    this.applyForce(sep);
+    this.applyForce(ali);
+    this.applyForce(coh);
+  }
+
+  ```
+- `maxspeed` contenido en el consturctor de boid.
+- `maxforce` contenido en el consturctor de boid.
 ### Modificación
+**Aumentar drásticamente el radio de percepción de la separación**
+Se observan muy separados los boids.
+![image](https://github.com/user-attachments/assets/40e8b63b-bf46-4f74-a400-af7cfe82e15d)
+
+**Disminuir drásticamente el radio de percepción de la separación**
+Se observan muy juntos los boids.
+![image](https://github.com/user-attachments/assets/d846951f-e304-4375-860a-8723695a5585)
