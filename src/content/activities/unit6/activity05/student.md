@@ -5,7 +5,7 @@
 **Flocking**: las reglas de movimiento las dictan los demás agentes, se calculan respecto al comportamiento de los vecinos. Se ve coordinado porque sigue un movimiento muy similar al de los vecinos.
 
 ### Tipos de comportamiento emergente: basado en tu análisis y aplicación, ¿Qué tipo de comportamiento colectivo o patrón visual crees que es más fácil o natural lograr con Flow Fields? ¿Y con Flocking? Da ejemplos.
-Con flow fields emular fenómenos naturales y el movimiento de objetos inanimados que deben desplazarse me parece más acertado. Mientras que flocking es más útil para seres vivos, se ve bastante natural, muy acercado a cómo se comportaría un miembro de un enjambre, cardumen, o cualquier otro grupo de criaturas.
+Con flow fields emular fenómenos naturales y el movimiento de objetos inanimados que deben desplazarse me parece más acertado (hojas que van con el viento, ), pues estos objetos no están conscientes de su entorno, sino que hacen lo que dicta una fuerza externa. Mientras que flocking es más útil para seres vivos, se ve bastante natural, muy acercado a cómo se comportaría un miembro de un enjambre, cardumen, o cualquier otro grupo de criaturas.
 
 ### Ventajas y desventajas: en tu opinión, ¿Cuáles podrían ser las ventajas o desventajas de usar uno u otro algoritmo para ciertos tipos de efectos visuales o simulaciones?
 
