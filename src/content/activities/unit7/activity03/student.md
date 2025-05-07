@@ -5,6 +5,9 @@ En la palabra helio, la "o" se comportará como un globo y mientras el usuario h
 Una idea extra de chatGPT que ofreció al mostrar mi concepto base, fue la de Transformar la "o" en un sol al final: Agregarle rayos que se expanden sutilmente, y un glow (efecto visual) con transparencia para dar calor/luz. Además de usar una tipografía infladita y redondeada para reforzar el concepto.
 
 ### Implementación
+Usé Matter.js para formar las letras con cuerpos circulares estáticos. Cada letra de la palabra "heli" se representa como un cuerpo circular (Bodies.circle) que sirve como punto base donde se dibuja la letra usando p5.js. La letra "o" es especial, ya que está representada como un cuerpo circular creciente (el Sol), que escala su tamaño dinámicamente usando Body.scale al hacer clic. El punto de la i también es especial y está contemplado en una clase aparte floatingdot.
+
+Aunque no hay constraints explícitos, la interacción está dada por presionar y soltar el mouse. Para hacer crecer el sol
 
 ### Código
 **sketch.js**
