@@ -11,5 +11,6 @@ Una idea extra de chatGPT que ofreció al mostrar mi concepto base, fue la de Tr
 ``` js
 ```
 ### Resultado
-[Enlace a la simulación]()
+[Enlace a la simulación](https://editor.p5js.org/SofiaLezcanoArenas/sketches/NWhcuIGE3)
 
+[GIF](https://www.canva.com/design/DAGmyFZItZA/y4NH_EtRmja-_MPS6bnKuQ/watch?utm_content=DAGmyFZItZA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbbbf34b9e4)
