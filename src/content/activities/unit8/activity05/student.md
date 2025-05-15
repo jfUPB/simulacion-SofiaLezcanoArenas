@@ -15,3 +15,7 @@ Utilizando un flowfield logré que se mantuviera aleatoriedad en la visualizaci�
 Un flowfield era mi mejor opción porque además de la aleatoriedad, también ayuda a mantener un movimiento coordinado que se ve bastante bien para seres vivos parte de un gran organismo como lo son las raíces de un árbol.
 
 ### Integración de conceptos: ¿Cómo aplicaste o combinaste conceptos de unidades anteriores (fuerzas, sistemas, agentes, física, etc.) en tu algoritmo generativo para este proyecto?
+- Interpolación de color -> para una mayor variedad visual, cada partícula se crea con un color resultado de la interpolación entre un azul y un verde
+- Flowfield -> está encargado de controlar la dirección del movimiento de las partículas para que se vean como parte de un organismo pero también para que haya bastante variedad en las direcciones y sea inesperado el movimiento
+- Sistema de partículas -> 
+- Marco motion 101 -> sin él las partículas no podrían moverse. Aquí se interpreta la dirección y la velocidad para calcular la nueva posición de las partículas.
