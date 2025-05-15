@@ -1,0 +1,17 @@
+## Consolidando la experiencia audiovisual generativa
+
+### Conexión sonido-visión: ¿Qué tan efectiva crees que fue la conexión entre las características del audio que elegiste y los parámetros visuales que controlaban? ¿Lograste una respuesta visual que se sintiera “musical” o sincronizada? ¿Qué fue lo más difícil de esta conexión?
+
+Es totalmente efectiva. La visualización además de guardar una conexión con la letra y el significado de la canción se siente viva, musical y plenamente sincronizada con la pieza.
+
+Lo más complejo fue que se pudieran distinguir un poco las raíces por color a pesar del cambio del brillo. Aunque no está demasiado definido, de igual manera aporta un efecto interesante. También hubo cosas que no logré implementar como la interacción del usuario mediante la cámara.
+
+No tuve ningún problema con la carga o análisis de audio porque ya había experimentado con esto anteriormente.
+
+### Generatividad vs. Control: ¿Cómo balanceaste la necesidad de que los visuales respondieran al audio (control) con el objetivo de que fueran generativos y no repetitivos? ¿Qué técnicas usaste para introducir variación o aleatoriedad controlada?
+
+Utilizando un flowfield logré que se mantuviera aleatoriedad en la visualización y que él mismo es diferente cada que se inicia una nueva visualización desde el inicio. Además, este también puede modificarse dando clic en el lienzo.
+
+Un flowfield era mi mejor opción porque además de la aleatoriedad, también ayuda a mantener un movimiento coordinado que se ve bastante bien para seres vivos parte de un gran organismo como lo son las raíces de un árbol.
+
+### Integración de conceptos: ¿Cómo aplicaste o combinaste conceptos de unidades anteriores (fuerzas, sistemas, agentes, física, etc.) en tu algoritmo generativo para este proyecto?
