@@ -20,3 +20,8 @@ Un flowfield era mi mejor opción porque además de la aleatoriedad, también ay
 - Sistema de partículas -> para más dinamismo y versatilidad en el movimiento.
 - Marco motion 101 -> sin él las partículas no podrían moverse. Aquí se interpreta la dirección y la velocidad para calcular la nueva posición de las partículas.
 
+### Desafíos de p5.sound: ¿Encontraste alguna dificultad particular al usar p5.sound para el análisis de audio en tiempo real (rendimiento, precisión, complejidad de la API)?
+Como ya había experimentado con audio en p5 y justamente analizando la amplitud de una canción, entonces ya conocía un camino para lograrlo sin problemas. 
+
+### Resultado final: ¿El resultado final se acerca a tu concepto visual original? ¿Qué aspecto de tu simulación te enorgullece más? ¿Qué mejorarías si tuvieras más tiempo?
+Se acerca bastante, aunque tuve que omitir algunas cosas para asegurar el rendimiento y una mejor visualización, priorizando el elemento más impactante (las raíces) para que ocupara todo el lienzo.
